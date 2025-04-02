@@ -1,4 +1,13 @@
 apply from: '../android_libs.gradle'
+def getPropertiesFile = { path ->
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(file(path)))
+    return properties
+}
+
+def properties = getPropertiesFile("../../local.properties")
+def githubUsername = properties.getProperty("GITHUB_USERNAME") ?: ""
+def githubToken = properties.getProperty("GITHUB_TOKEN") ?: ""
 
 android {
 
@@ -52,6 +61,13 @@ publishing {
         mavenLocal()
         maven {
             url uri('../../maven-repo')
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/longquangpham90/permission-kit")
+            credentials {
+                username = githubUsername
+                password = githubToken
+            }
         }
     }
 }

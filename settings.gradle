@@ -13,14 +13,28 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+    def getPropertiesFile = { path ->
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(file(path)))
+        return properties
+    }
+
+    def properties = getPropertiesFile("./local.properties")
+    def githubUsername = properties.getProperty("GITHUB_USERNAME") ?: ""
+    def githubToken = properties.getProperty("GITHUB_TOKEN") ?: ""
+
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven { url "https://jitpack.io" }
         google()
         mavenCentral()
         mavenLocal()
-        maven { url "https://jitpack.io" }
         maven {
-            url "./maven-repo"
+            url = uri("https://maven.pkg.github.com/longquangpham90/permission-kit")
+            credentials {
+                username = githubUsername
+                password = githubToken
+            }
         }
     }
 }

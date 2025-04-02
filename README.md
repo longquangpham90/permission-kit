@@ -66,12 +66,12 @@ Please update folder mavenLocal (default: ~/.m2) in file setting.gradle
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven { url "https://jitpack.io" }
         google()
         mavenCentral()
         mavenLocal()
-        maven { url "https://jitpack.io" }
         maven {
-            url = uri("https://maven.pkg.github.com/yourusername/your-repo")
+            url = uri("https://maven.pkg.github.com/longquangpham90/permission-kit")
             credentials {
                     username = "yourusername"
                     password = "your-github-token"
