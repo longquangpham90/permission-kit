@@ -1,0 +1,29 @@
+task distributionDevRelease(type: GradleBuild) { task->
+    description = "Task Distribution for Dev env"
+//    tasks = ['ktlintFormat']
+    dependsOn clean
+    tasks = [':app:bumpPatchVersionDev', ':app:assembleDevRelease', ':app:appDistributionUploadDevRelease']
+    doLast {
+        println(description)
+    }
+}
+
+task distributionQARelease(type: GradleBuild) { task->
+    description = "Task Distribution for QA env"
+//    tasks = ['ktlintFormat']
+    dependsOn clean
+    tasks = [':app:bumpPatchVersionQa', ':app:assembleQaRelease', ':app:appDistributionUploadQaRelease']
+    doLast {
+        println(description)
+    }
+}
+
+task distributionProdRelease(type: GradleBuild) { task->
+    description = "Task Distribution for Prod env"
+//    tasks = ['ktlintFormat']
+    dependsOn clean
+    tasks = [':app:bumpPatchVersionProd', ':app:assembleProdRelease', ':app:appDistributionUploadProdRelease']
+    doLast {
+        println(description)
+    }
+}

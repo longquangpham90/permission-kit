@@ -1,0 +1,64 @@
+apply from: '../android_libs.gradle'
+
+android {
+
+    namespace "com.studio.permission"
+
+    defaultConfig {
+        versionCode 1
+        versionName "1.0.0"
+    }
+}
+
+dependencies {
+}
+
+def libName = 'permission'
+
+task javadocJar(type: Jar) {
+    archiveClassifier.set("docs")
+    from "$buildDir/dokkaJavadoc"
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set("sources")
+    from android.sourceSets.main.java.srcDirs
+}
+
+publishing {
+    publications {
+        "mavenAar${libName}"(MavenPublication) {
+            groupId = "com.studio.${libName}"
+            artifactId = "${libName}-kit"
+            version = android.defaultConfig.versionName
+            artifact(file("$buildDir/outputs/aar/${libName}.aar"))
+            artifact sourcesJar
+            artifact dokkaJar
+
+            pom {
+                withXml {
+                    def dependenciesNode = asNode().appendNode("dependencies")
+                    def dependencyNode = dependenciesNode.appendNode("dependency")
+                    dependencyNode.appendNode("groupId", "com.studio.${libName}")
+                    dependencyNode.appendNode("artifactId", "${libName}-kit")
+                    dependencyNode.appendNode("version", android.defaultConfig.versionName)
+                    dependencyNode.appendNode("scope", "runtime")
+                }
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        maven {
+            url uri('../../maven-repo')
+        }
+    }
+}
+
+task pushAds {
+    dependsOn 'publish'
+    doLast {
+        println("Running push build release to MavenLocal task")
+    }
+}

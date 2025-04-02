@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">アプリケーションが機能するには次の権限が必要です:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\n設定に移動して権限を付与してください。</string>
+    <string name="grant_permission_access_denied">許可が拒否されました</string>
+    <string name="grant_permission_open_setting">設定を開く</string>
+    <string name="grant_permission_cancel">キャンセル</string>
+    <string name="grant_permission_camera_access">カメラアクセス</string>
+    <string name="grant_permission_read_external_storage">デバイス上のファイルの読み取り許可</string>
+    <string name="grant_permission_write_external_storage">デバイスへのファイルの書き込み許可</string>
+    <string name="grant_permission_access_fine_location">正確な位置へのアクセス</string>
+    <string name="grant_permission_record_audio">録音権</string>
+</resources>

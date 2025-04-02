@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">แอปพลิเคชันต้องการสิทธิ์ต่อไปนี้จึงจะทำงานได้:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nโปรดไปที่การตั้งค่าเพื่อให้สิทธิ์</string>
+    <string name="grant_permission_access_denied">การอนุญาตถูกปฏิเสธ</string>
+    <string name="grant_permission_open_setting">เปิดการตั้งค่า</string>
+    <string name="grant_permission_cancel">ยกเลิก</string>
+    <string name="grant_permission_camera_access">การเข้าถึงกล้อง</string>
+    <string name="grant_permission_read_external_storage">สิทธิ์ในการอ่านไฟล์บนอุปกรณ์</string>
+    <string name="grant_permission_write_external_storage">สิทธิ์ในการเขียนไฟล์บนอุปกรณ์</string>
+    <string name="grant_permission_access_fine_location">การเข้าถึงตำแหน่งที่แม่นยำ</string>
+    <string name="grant_permission_record_audio">สิทธิในการบันทึก</string>
+</resources>

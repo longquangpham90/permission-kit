@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="grant_permission_need_to_access">يحتاج التطبيق إلى الأذونات التالية ليعمل:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nالرجاء الانتقال إلى الإعدادات لمنح الأذونات.</string>
+    <string name="grant_permission_access_denied">تم رفض الإذن</string>
+    <string name="grant_permission_open_setting">افتح الإعدادات</string>
+    <string name="grant_permission_cancel">يلغي</string>
+    <string name="grant_permission_camera_access">الوصول إلى الكاميرا</string>
+    <string name="grant_permission_read_external_storage">- إذن لقراءة الملفات الموجودة على الجهاز</string>
+    <string name="grant_permission_write_external_storage">السماح بكتابة الملفات على الجهاز</string>
+    <string name="grant_permission_access_fine_location">الوصول إلى الموقع الدقيق</string>
+    <string name="grant_permission_record_audio">حقوق التسجيل</string>
+</resources>

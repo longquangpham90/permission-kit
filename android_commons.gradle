@@ -1,0 +1,146 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.devtools.ksp'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'org.jlleitschuh.gradle.ktlint'
+apply plugin: 'io.gitlab.arturbosch.detekt'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+android {
+    compileSdk Releases.compileSdk
+
+    sourceSets.main {
+        res.srcDirs = ['src/main/res',
+                       '../../common-res/src/main/res']
+    }
+
+    defaultConfig {
+        minSdk Releases.minSdk
+        targetSdk Releases.targetSdk
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+        buildConfig = true
+    }
+
+    hilt {
+        enableAggregatingTask = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE', 'META-INF/LICENSE',
+                         'META-INF/LICENSE.txt', 'META-INF/NOTICE.txt', 'META-INF/license.txt',
+                         'META-INF/notice.txt']
+        }
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        dev {
+            dimension "environment"
+        }
+        qa {
+            dimension "environment"
+        }
+        prod {
+            dimension "environment"
+        }
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
+
+dependencies {
+    implementation Deps.kotlinStdlib
+    implementation Deps.appcompat
+    implementation Deps.material
+    implementation Deps.constraintLayout
+    implementation Deps.inAppUpdate
+    implementation Deps.recyclerView
+    implementation Deps.swipeRefreshLayout
+    implementation Deps.hiltAndroid
+    ksp Deps.hiltCompiler
+    implementation Deps.timber
+    implementation Deps.datastorePreferences
+    implementation Deps.navigationUi
+    implementation Deps.navigationFragment
+    implementation Deps.ultimateBarX
+    implementation(Deps.localization) {
+        exclude group: 'androidx.core', module: 'core'
+    }
+    implementation Deps.coil
+    implementation Deps.playServicesBase
+    implementation Deps.playServicesIntegrity
+    implementation Deps.firebaseAnalyticsKtx
+    implementation Deps.firebaseMessagingKtx
+    implementation Deps.firebaseCrashlyticsKtx
+    implementation Deps.firebaseAnalyticsKtx
+    implementation Deps.lifecycleViewModelKtx
+    implementation Deps.firebaseAuthKtx
+    implementation Deps.googleAds
+    implementation Deps.shimmer
+    implementation Deps.rxAdapter3
+    implementation Deps.retrofit
+    implementation Deps.retrofitGsonConverter
+    implementation Deps.okhttpLoggingInterceptor
+    implementation Deps.annotationAPI
+    implementation Deps.swipeLayout
+    implementation Deps.advancedWebView
+    implementation Deps.groupie
+    implementation Deps.groupieDatabinding
+    implementation Deps.groupieViewbinding
+    implementation Deps.stickyLayoutManager
+    implementation Deps.googleVision
+    implementation Deps.mlkitObjectDetection
+    implementation Deps.mlkitFaceDetection
+    implementation Deps.cameraXCore
+    implementation Deps.cameraX2
+    implementation Deps.cameraXView
+    implementation Deps.cameraXVideo
+    implementation Deps.cameraXLifecycle
+    implementation Deps.cameraXExtensions
+
+    debugApi Deps.chuckerDebug
+    releaseApi Deps.chuckerRelease
+    debugApi Deps.hyperionCore
+    releaseApi Deps.hyperionCoreRelease
+    debugApi Deps.hyperionCrash
+    debugApi Deps.hyperionAttr
+    debugApi Deps.hyperionMeasurement
+    debugApi Deps.hyperionPhoenix
+    debugApi Deps.hyperionRecorder
+    debugApi Deps.hyperionSharedPreferences
+
+    testImplementation TestDeps.junit
+    androidTestImplementation TestDeps.junitExt
+    androidTestImplementation TestDeps.espressoCore
+    testImplementation TestDeps.testCore
+    testImplementation TestDeps.testRunner
+
+//    implementation 'com.allattentionhere:fabulousfilter:0.0.6'
+//    implementation 'com.github.bosphere:android-verticalslider:1.0.3'
+//    implementation 'com.scwang.wave:MultiWaveHeader:1.0.0'
+//    implementation 'com.truizlop.fabreveallayout:library:1.0.0'
+//    implementation 'com.xw.repo:bubbleseekbar:3.20'
+}

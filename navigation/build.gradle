@@ -1,0 +1,94 @@
+apply plugin: 'com.android.library'
+apply from: '../android_commons.gradle'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+def getPropertiesFile = { path ->
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(file(path)))
+    return properties
+}
+
+android {
+
+    namespace 'com.studio.navigation'
+
+    sourceSets.main {
+        res.srcDirs = ['src/main/res',
+                       '../common-res/src/main/res']
+    }
+
+    libraryVariants.all { variant ->
+        Object ps = getPropertiesFile("../app/config/env/dev.properties")
+        Object deepLinks = getPropertiesFile("./config/deepLink.properties")
+
+        String deepLinkSchemeKey = "DEEP_LINK_SCHEME"
+        String deepLinkSchemeHttpsKey = "DEEP_LINK_SCHEME_HTTPS"
+        String deepLinkHostKey = "DEEP_LINK_HOST"
+        String deepLinkWebHostKey = "DEEP_LINK_WEB_HOST"
+        String deepLinkPatternKey = "DEEP_LINK_PATTERN"
+        String deepLinkWebHostPatternKey = "DEEP_LINK_WEB_HOST_PATTERN"
+        String deepLinkAppsFlyerHostKey = "DEEP_LINK_APPS_FLYER_HOST"
+        String deeplinkAppsFlyerCustomHostKey = "DEEP_LINK_APPS_FLYER_CUSTOM_HOST"
+        String deepLinkAppsFlyerHostPatternKey = "DEEP_LINK_APPS_FLYER_HOST_PATTERN"
+        String deepLinkAppsFlyerCustomHostPatternKey = "DEEP_LINK_APPS_FLYER_CUSTOM_HOST_PATTERN"
+        String deepLinkScheme = ps[deepLinkSchemeKey] ?: deepLinks["DEFAULT_DEEP_LINK_SCHEME"] ?: ""
+        String deepLinkSchemeHttps = deepLinks[deepLinkSchemeHttpsKey] ?: ""
+        String deepLinkHost = ps[deepLinkHostKey] ?: deepLinks["DEFAULT_DEEP_LINK_HOST"] ?: ""
+        String deepLinkWebHost = ps[deepLinkWebHostKey] ?: deepLinks["DEFAULT_DEEP_LINK_WEB_HOST"] ?: ""
+        String deepLinkAppsFlyerHost = ps[deepLinkAppsFlyerHostKey] ?: ""
+        String deepLinkAppsFlyerCustomDomain = ps[deeplinkAppsFlyerCustomHostKey] ?: ""
+        Object deepLinkPattern = deepLinkScheme + "://" + deepLinkHost
+        Object deepLinkWebHostPattern = deepLinkScheme + "://" + deepLinkWebHost
+        Object deepLinkAppsFlyerPattern = deepLinkSchemeHttps + "://" + deepLinkAppsFlyerHost
+        Object deepLinkAppsFlyerCustomDomainPattern = deepLinkSchemeHttps + "://" + deepLinkAppsFlyerCustomDomain
+        variant.resValue "string", deepLinkSchemeKey.toLowerCase(), deepLinkScheme
+        variant.buildConfigField "String", deepLinkSchemeKey.toUpperCase(), ("\"" + deepLinkScheme + "\"")
+        variant.resValue "string", deepLinkHostKey.toLowerCase(), deepLinkHost
+        variant.buildConfigField "String", deepLinkHostKey.toUpperCase(), ("\"" + deepLinkHost + "\"")
+        variant.resValue "string", deepLinkWebHostKey.toLowerCase(), deepLinkWebHost
+        variant.buildConfigField "String", deepLinkWebHostKey.toUpperCase(), ("\"" + deepLinkWebHost + "\"")
+        variant.resValue "string", deepLinkPatternKey.toLowerCase(), deepLinkPattern
+        variant.buildConfigField "String", deepLinkPatternKey.toUpperCase(), ("\"" + deepLinkPattern + "\"")
+        variant.resValue "string", deepLinkWebHostPatternKey.toLowerCase(), deepLinkWebHostPattern
+        variant.buildConfigField "String", deepLinkWebHostPatternKey.toUpperCase(), ("\"" + deepLinkWebHostPattern + "\"")
+        variant.resValue "string", deepLinkSchemeHttps.toLowerCase(), deepLinkSchemeHttps
+        variant.buildConfigField "String", deepLinkSchemeHttps.toUpperCase(), ("\"" + deepLinkSchemeHttps + "\"")
+        variant.resValue "string", deepLinkAppsFlyerHostKey.toLowerCase(), deepLinkAppsFlyerHost
+        variant.buildConfigField "String", deepLinkAppsFlyerHostKey.toUpperCase(), ("\"" + deepLinkAppsFlyerHost + "\"")
+        variant.resValue "string", deepLinkAppsFlyerHostPatternKey.toLowerCase(), deepLinkAppsFlyerPattern
+        variant.buildConfigField "String", deepLinkAppsFlyerHostPatternKey.toUpperCase(), ("\"" + deepLinkAppsFlyerPattern + "\"")
+        variant.resValue "string", deeplinkAppsFlyerCustomHostKey.toLowerCase(), deepLinkAppsFlyerCustomDomain
+        variant.buildConfigField "String", deeplinkAppsFlyerCustomHostKey.toUpperCase(), ("\"" + deepLinkAppsFlyerCustomDomain + "\"")
+        variant.resValue "string", deepLinkAppsFlyerCustomHostPatternKey.toLowerCase(), deepLinkAppsFlyerCustomDomainPattern
+        variant.buildConfigField "String", deepLinkAppsFlyerCustomHostPatternKey.toUpperCase(), ("\"" + deepLinkAppsFlyerCustomDomainPattern + "\"")
+
+        deepLinks.each { p ->
+            if (p.key.toString().startsWith("DEEP_LINK")) {
+                variant.resValue "string", p.key.toString().toLowerCase(), p.value
+                variant.buildConfigField "String", p.key, ("\"" + p.value + "\"")
+
+                if (p.key.toString().startsWith("DEEP_LINK_PATH")) {
+                    String key = p.key.toString().replace("_PATH", "")
+                    Object value = deepLinkPattern + p.value
+                    variant.resValue "string", key.toString().toLowerCase(), value
+                    variant.buildConfigField "String", key, ("\"" + value + "\"")
+
+                    String keyIgnoreHost = p.key.toString().replace("_PATH", "_IGNORE_HOST")
+                    Object valueIgnoreHost = deepLinkScheme + "://.*" + p.value
+                    variant.resValue "string", keyIgnoreHost.toString().toLowerCase(), valueIgnoreHost
+                    variant.buildConfigField "String", keyIgnoreHost, ("\"" + valueIgnoreHost + "\"")
+
+                    String keyHttps = p.key.toString().replace("_PATH", "_UNIVERSAL")
+                    Object valueHttps = ".*" + p.value
+                    variant.resValue "string", keyHttps.toString().toLowerCase(), valueHttps
+                    variant.buildConfigField "String", keyHttps, ("\"" + p.value + "\"")
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+
+    implementation project(Modules.domain)
+}

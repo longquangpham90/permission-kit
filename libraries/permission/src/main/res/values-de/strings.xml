@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">Die Anwendung benötigt die folgenden Berechtigungen, um zu funktionieren:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nBitte gehen Sie zu den Einstellungen, um Berechtigungen zu erteilen.</string>
+    <string name="grant_permission_access_denied">Zugriff verweigert</string>
+    <string name="grant_permission_open_setting">Öffnen Sie Einstellungen</string>
+    <string name="grant_permission_cancel">Stornieren</string>
+    <string name="grant_permission_camera_access">Kamerazugriff</string>
+    <string name="grant_permission_read_external_storage">Berechtigung zum Lesen von Dateien auf dem Gerät</string>
+    <string name="grant_permission_write_external_storage">Berechtigung zum Schreiben von Dateien auf dem Gerät</string>
+    <string name="grant_permission_access_fine_location">Präziser Standortzugriff</string>
+    <string name="grant_permission_record_audio">Aufnahmerechte</string>
+</resources>

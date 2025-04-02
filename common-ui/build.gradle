@@ -1,0 +1,12 @@
+apply plugin: 'com.android.library'
+apply from: '../android_commons.gradle'
+
+android {
+
+    namespace 'com.studio.common.ui'
+
+}
+
+dependencies {
+    implementation project(Modules.commonRes)
+}

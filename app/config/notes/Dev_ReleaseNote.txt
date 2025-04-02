@@ -1,0 +1,4 @@
+Content version implement in Application
+- 02/04/2025
+Release app v1.0.0
+Build release version lib

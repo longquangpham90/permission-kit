@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#7BD319</color>
+    <color name="gray">#484848</color>
+    <color name="purple_200">#404fa2</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#202020</color>
+    <color name="grad_300">#1C1919</color>
+    <color name="skeleton_base_color">#F5F5F5</color>
+    <color name="skeleton_highlight_color">#FFFFFFFF</color>
+    <color name="dark_mode_400">#3F3F3F</color>
+    <color name="dark_mode_500">#353535</color>
+    <color name="dark_mode_600">#2A2A2A</color>
+</resources>

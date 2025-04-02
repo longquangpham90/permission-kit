@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">Uygulamanın çalışması için aşağıdaki izinlere ihtiyacı var:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nİzin vermek için lütfen Ayarlar\'a gidin.</string>
+    <string name="grant_permission_access_denied">İzin reddedildi</string>
+    <string name="grant_permission_open_setting">Ayarları Aç</string>
+    <string name="grant_permission_cancel">İptal etmek</string>
+    <string name="grant_permission_camera_access">Kamera erişimi</string>
+    <string name="grant_permission_read_external_storage">Cihazdaki dosyaları okuma izni</string>
+    <string name="grant_permission_write_external_storage">Cihaza dosya yazma izni</string>
+    <string name="grant_permission_access_fine_location">Hassas konum erişimi</string>
+    <string name="grant_permission_record_audio">Kayıt hakları</string>
+</resources>

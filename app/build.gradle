@@ -1,0 +1,144 @@
+import com.android.build.gradle.internal.tasks.FinalizeBundleTask
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+//    id 'com.google.firebase.crashlytics'
+//    id 'com.google.firebase.appdistribution'
+    id 'com.github.ben-manes.versions'
+}
+
+def getPropertiesFile = { path ->
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(file(path)))
+    return properties
+}
+
+static def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmm')
+    return formattedDate
+}
+
+apply from: '../android_commons.gradle'
+apply from: '../task/versionDependency.gradle'
+apply from: '../task/versionApp.gradle'
+apply from: './config/keystores/build_member.gradle'
+
+android {
+    namespace 'com.demo.permission.kit'
+
+    defaultConfig {
+        applicationId "com.demo.permission.kit"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            manifestPlaceholders = [native_validator: "false"]
+            ext.enableCrashlytics = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
+            manifestPlaceholders = [native_validator: "true"]
+            ext.enableCrashlytics = false
+        }
+    }
+
+    flavorDimensions = ["environment"]
+    productFlavors {
+        dev {
+            dimension "environment"
+            def properties = getPropertiesFile("./config/env/dev.properties")
+//            firebaseAppDistribution {
+//                appId = properties.getProperty('FIREBASE_ID').replaceAll("\"", "")
+//                artifactType = "APK"
+//                releaseNotesFile = "./app/config/notes/Dev_ReleaseNote.txt"
+//                testersFile = "./app/config/groups/dev_test.txt"
+//                serviceCredentialsFile = "app/src/dev/adslibrary-77936-firebase-adminsdk-qepmn-a5757308de.json"
+//            }
+        }
+        qa {
+            dimension "environment"
+            def properties = getPropertiesFile("./config/env/qa.properties")
+//            firebaseAppDistribution {
+//                appId = properties.getProperty('FIREBASE_ID').replaceAll("\"", "")
+//                artifactType = "APK"
+//                releaseNotesFile = "app/config/notes/Qa_ReleaseNote.txt"
+//                testersFile = "app/config/groups/qa_test.txt"
+//                serviceCredentialsFile = "app/src/qa/adslibrary-77936-firebase-adminsdk-qepmn-a5757308de.json"
+//            }
+        }
+        prod {
+            dimension "environment"
+            def properties = getPropertiesFile("./config/env/prod.properties")
+//            firebaseAppDistribution {
+//                appId = properties.getProperty('FIREBASE_ID').replaceAll("\"", "")
+//                artifactType = "APK"
+//                releaseNotesFile = "./app/config/notes/Prod_ReleaseNote.txt"
+//                testersFile = "./app/config/groups/prod_test.txt"
+////                serviceCredentialsFile = System.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+//                serviceCredentialsFile = "app/src/prod/adslibrary-77936-firebase-adminsdk-qepmn-a5757308de.json"
+//            }
+        }
+    }
+
+    applicationVariants.configureEach { variant ->
+        def versionNameUpdate = "1.0.0"
+        def appName = "Permission"
+        getPropertiesFile("./config/env/${variant.flavorName}.properties").each { p ->
+            if (p.key == "APP_ID") {
+                variant.mergedFlavor.setApplicationId(p.value.replaceAll('"', ''))
+            } else if (p.key == "APP_NAME") {
+                variant.buildConfigField "String", p.key, p.value
+                variant.resValue "string", "app_name", p.value
+            } else if (p.key == "VERSION_CODE") {
+                variant.outputs.configureEach { output -> versionCodeOverride = p.value?.toInteger() ?: 1
+                }
+            } else if (p.key == "VERSION_NAME") {
+                variant.outputs.configureEach { output ->
+                    versionNameUpdate = p.value?.toString() ?: "1.0.0"
+                    versionNameOverride = versionNameUpdate
+                }
+            } else {
+                variant.buildConfigField "String", p.key, p.value
+            }
+        }
+        variant.buildConfigField "String", "TIME_BUILD_APP", "\"${System.currentTimeMillis()}\""
+        variant.outputs.configureEach { output ->
+            def fileExtension = output.outputFile?.name?.substring(output.outputFile.name.lastIndexOf('.') + 1)
+            def newFileName = "$appName-${variant.buildType.name}-${variant.versionCode}-v${variant.versionName}-build-${getDate()}"
+            if (fileExtension.contains("apk")) {
+                output.outputFileName = "${newFileName}.apk"
+            } else {
+                output.outputFileName = "${newFileName}.aab"
+            }
+        }
+        tasks.named("sign${variant.name.capitalize()}Bundle", FinalizeBundleTask) {
+            File file = finalBundleFile.asFile.get()
+            def newFileName = "$appName-${variant.buildType.name}-${variant.versionCode}-v${variant.versionName}-build-${getDate()}"
+            File finalFile = new File(file.parentFile, "${newFileName}.aab")
+            finalBundleFile.set(finalFile)
+        }
+
+        variant.assembleProvider.get().doLast {
+            def noteFile = file("./config/notes/${variant.flavorName}_ReleaseNote.txt")
+            if (noteFile.exists()) {
+                def currentDate = new Date().format("dd/MM/yyyy")
+                def newContent = noteFile.text.replaceAll(/\d{2}\/\d{2}\/\d{4}/, currentDate)
+                        .replaceAll(/Release app v\d+\.\d+\.\d+/, "Release app v$versionNameUpdate")
+                noteFile.text = newContent
+                println "--- Updated ${variant.flavorName}_ReleaseNote.txt current version: v$versionNameUpdate"
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation project(Modules.commonUI)
+    implementation project(Modules.featureSplash)
+}

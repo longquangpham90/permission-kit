@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">应用程序需要以下权限才能运行:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\n请前往“设置”授予权限。</string>
+    <string name="grant_permission_access_denied">没有权限</string>
+    <string name="grant_permission_open_setting">打开设置</string>
+    <string name="grant_permission_cancel">取消</string>
+    <string name="grant_permission_camera_access">相机访问</string>
+    <string name="grant_permission_read_external_storage">读取设备上文件的权限</string>
+    <string name="grant_permission_write_external_storage">在设备上写入文件的权限</string>
+    <string name="grant_permission_access_fine_location">精确位置访问</string>
+    <string name="grant_permission_record_audio">录音权</string>
+</resources>

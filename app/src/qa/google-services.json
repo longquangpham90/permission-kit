@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "634495574905",
+    "project_id": "adslibrary-77936",
+    "storage_bucket": "adslibrary-77936.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634495574905:android:0739c38b5d4e06e59d05a8",
+        "android_client_info": {
+          "package_name": "com.studio.learncomputercourse.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqHoOtO5cPsUfPcYPAk2YbaTRUzioEVQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634495574905:android:6f32b8d43e4ffd659d05a8",
+        "android_client_info": {
+          "package_name": "com.studio.learncomputercourse.qa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqHoOtO5cPsUfPcYPAk2YbaTRUzioEVQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">Ứng dụng cần các quyền sau để hoạt động:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nVui lòng vào Cài đặt để cấp quyền.</string>
+    <string name="grant_permission_access_denied">Quyền bị từ chối</string>
+    <string name="grant_permission_open_setting">Mở Cài đặt</string>
+    <string name="grant_permission_cancel">Hủy</string>
+    <string name="grant_permission_camera_access">Quyền truy cập Camera</string>
+    <string name="grant_permission_read_external_storage">Quyền đọc tệp trên thiết bị</string>
+    <string name="grant_permission_write_external_storage">Quyền ghi tệp trên thiết bị</string>
+    <string name="grant_permission_access_fine_location">Quyền truy cập vị trí chính xác</string>
+    <string name="grant_permission_record_audio">Quyền ghi âm</string>
+</resources>

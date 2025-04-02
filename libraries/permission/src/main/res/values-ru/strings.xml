@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">Для работы приложения необходимы следующие разрешения:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nПерейдите в «Настройки», чтобы предоставить разрешения.</string>
+    <string name="grant_permission_access_denied">Доступ запрещен</string>
+    <string name="grant_permission_open_setting">Открыть настройки</string>
+    <string name="grant_permission_cancel">Отмена</string>
+    <string name="grant_permission_camera_access">Доступ к камере</string>
+    <string name="grant_permission_read_external_storage">Разрешение на чтение файлов на устройстве</string>
+    <string name="grant_permission_write_external_storage">Разрешение на запись файлов на устройство</string>
+    <string name="grant_permission_access_fine_location">Точный доступ к местоположению</string>
+    <string name="grant_permission_record_audio">Права на запись</string>
+</resources>

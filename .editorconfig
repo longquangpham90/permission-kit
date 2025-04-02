@@ -1,0 +1,5 @@
+[*.{kt,kts}]
+ij_kotlin_allow_trailing_comma = false
+ij_kotlin_allow_trailing_comma_on_call_site = false
+max-line-length = false
+ktlint_ignore_back_ticked_identifier = false

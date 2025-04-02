@@ -1,0 +1,13 @@
+apply plugin: 'com.android.library'
+apply from: '../android_commons.gradle'
+
+android {
+
+    namespace 'com.studio.domain'
+
+}
+
+dependencies {
+
+//    implementation project(Modules.data)
+}

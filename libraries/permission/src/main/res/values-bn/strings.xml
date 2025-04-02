@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">অ্যাপ্লিকেশনটির কাজ করার জন্য নিম্নলিখিত অনুমতিগুলির প্রয়োজন:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nঅনুমতি দিতে সেটিংসে যান।</string>
+    <string name="grant_permission_access_denied">অনুমতি অস্বীকার করা হয়েছে</string>
+    <string name="grant_permission_open_setting">সেটিংস খুলুন</string>
+    <string name="grant_permission_cancel">বাতিল করুন</string>
+    <string name="grant_permission_camera_access">ক্যামেরা অ্যাক্সেস</string>
+    <string name="grant_permission_read_external_storage">ডিভাইসে ফাইল পড়ার অনুমতি</string>
+    <string name="grant_permission_write_external_storage">ডিভাইসে ফাইল লেখার অনুমতি</string>
+    <string name="grant_permission_access_fine_location">সুনির্দিষ্ট অবস্থান অ্যাক্সেস</string>
+    <string name="grant_permission_record_audio">রেকর্ডিং অধিকার</string>
+</resources>

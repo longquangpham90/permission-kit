@@ -1,0 +1,74 @@
+class Version {
+
+    private int major
+    private int minor
+    private int patch
+    private int code
+
+    Version(int code, String version) {
+        this.code = code
+        def (major, minor, patch) = version.tokenize('.')
+        this.major = major.toInteger()
+        this.minor = minor.toInteger()
+        this.patch = patch.toInteger()
+    }
+
+    @SuppressWarnings("unused")
+    void bumpMajor() {
+        major += 1
+        minor = 0
+        patch = 0
+        code += 1
+    }
+
+    @SuppressWarnings("unused")
+    void bumpMinor() {
+        minor += 1
+        patch = 0
+        code += 1
+    }
+
+    @SuppressWarnings("unused")
+    void bumpPatch() {
+        patch += 1
+        code += 1
+    }
+
+    String getName() { "$major.$minor.$patch" }
+
+    int getCode() { code }
+}
+
+tasks.addRule("Pattern: bump<TYPE>Version<ENV>") { String taskName ->
+    def envMatcher = taskName =~ /bump(Major|Minor|Patch)Version(Dev|Qa|Prod)/
+    if (envMatcher) {
+        def type = envMatcher[0][1]
+        def mEnv = envMatcher[0][2].toLowerCase()
+        task(taskName) {
+            doLast {
+                println "Bumping $type version for $mEnv environment..."
+                def fileName = "../app/config/env/${mEnv}.properties"
+                def file = file(fileName)
+                def props = [:]
+                file.eachLine { line ->
+                    def (key, value) = line.split('=', 2)
+                    if (key && value) {
+                        props[key.trim()] = value.trim()
+                    }
+                }
+                def versionCodeValue = props['VERSION_CODE']
+                def oldVersionCode = versionCodeValue ? versionCodeValue.toInteger() : 1
+                def versionName = props['VERSION_NAME']
+                def oldVersionName = versionName ? versionName : "1.0.0"
+                version = new Version(oldVersionCode, oldVersionName)
+                version."bump$type"()
+                String newVersionName = version.getName()
+                String newVersionCode = version.getCode()
+                println "$oldVersionName ($oldVersionCode) → $newVersionName ($newVersionCode)"
+                props['VERSION_CODE'] = newVersionCode
+                props['VERSION_NAME'] = newVersionName
+                file.text = props.collect { key, value -> "$key = $value" }.join('\n')
+            }
+        }
+    }
+}

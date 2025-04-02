@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">The application needs the following permissions to function:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nPlease go to Settings to grant permissions.</string>
+    <string name="grant_permission_access_denied">Permission denied</string>
+    <string name="grant_permission_open_setting">Open Settings</string>
+    <string name="grant_permission_cancel">Cancel</string>
+    <string name="grant_permission_camera_access">Camera access</string>
+    <string name="grant_permission_read_external_storage">Permission to read files on the device</string>
+    <string name="grant_permission_write_external_storage">Permission to write files on the device</string>
+    <string name="grant_permission_access_fine_location">Precise location access</string>
+    <string name="grant_permission_record_audio">Recording rights</string>
+</resources>

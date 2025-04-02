@@ -1,0 +1,81 @@
+apply plugin: 'maven-publish'
+
+def libraries = ['permission']
+
+task dokkaJar(type: Jar) {
+    archiveClassifier.set("docs")
+    from("$buildDir/dokka")
+}
+
+libraries.each { libName ->
+    def capitalizedLibName = libName
+
+    tasks.register("build${capitalizedLibName}") {
+        dependsOn ":libraries:$libName:assembleProdRelease"
+    }
+
+    tasks.register("rename${capitalizedLibName}", Copy) {
+        from "$buildDir/outputs/aar/${libName}-prod-release.aar"
+        into "$buildDir/outputs/aar/"
+        rename { String fileName -> fileName.replace("${libName}-prod-release.aar", "${libName}.aar")
+        }
+        doLast {
+            println("--- rename file: ${libName}.aar")
+        }
+    }
+
+    tasks.register("delete${capitalizedLibName}", Delete) {
+        delete "$buildDir/outputs/aar/${libName}-prod-release.aar"
+        doLast {
+            println("--- delete file: ${libName}-prod-release.aar")
+        }
+    }
+
+    tasks.register("process${capitalizedLibName}") {
+        if (capitalizedLibName.equals(project.name) && project.plugins.hasPlugin('com.android.library')) {
+            dependsOn "build${capitalizedLibName}", "rename${capitalizedLibName}",
+                    "delete${capitalizedLibName}"
+        }
+    }
+
+    tasks.named("rename${capitalizedLibName}").configure {
+        mustRunAfter "build${capitalizedLibName}"
+    }
+
+    tasks.named("delete${capitalizedLibName}").configure {
+        mustRunAfter "rename${capitalizedLibName}"
+    }
+}
+
+tasks.register("buildAllLibraries") {
+    dependsOn libraries.collect { libName ->
+        if (project.plugins.hasPlugin('com.android.library')) {
+            tasks.named("process${libName}")
+        }
+    }
+    dependsOn libraries.collect { libName ->
+        if (project.plugins.hasPlugin('com.android.library')) {
+            tasks.named("sourcesJar")
+        }
+    }
+    dependsOn libraries.collect { libName ->
+        if (project.plugins.hasPlugin('com.android.library')) {
+            tasks.named("javadocJar")
+        }
+    }
+    doLast {
+        println "All libraries build successfully."
+    }
+}
+
+tasks.register("publishAllLibraries") {
+    def libraryTasks = tasks.matching { task -> task.name.startsWith('push') && task.name != 'publishAllLibraries'
+    }
+    dependsOn libraryTasks
+
+    doLast {
+        println "All libraries published successfully."
+    }
+}
+
+

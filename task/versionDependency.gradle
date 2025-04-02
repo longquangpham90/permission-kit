@@ -1,0 +1,12 @@
+task dependencyUpdatesTask {
+    dependsOn dependencyUpdates.configure {
+        checkForGradleUpdate = true
+        outputFormatter = "json"
+        outputDir = "build/dependencyUpdates"
+        reportfileName = "report"
+    }
+    description = "--- Update version library done"
+    doLast {
+        println(description)
+    }
+}

@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">అప్లికేషన్ పని చేయడానికి క్రింది అనుమతులు అవసరం:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nదయచేసి అనుమతులను మంజూరు చేయడానికి సెట్టింగ్‌లకు వెళ్లండి.</string>
+    <string name="grant_permission_access_denied">అనుమతి నిరాకరించబడింది</string>
+    <string name="grant_permission_open_setting">సెట్టింగ్‌లను తెరవండి</string>
+    <string name="grant_permission_cancel">రద్దు చేయి</string>
+    <string name="grant_permission_camera_access">కెమెరా యాక్సెస్</string>
+    <string name="grant_permission_read_external_storage">పరికరంలో ఫైల్‌లను చదవడానికి అనుమతి</string>
+    <string name="grant_permission_write_external_storage">పరికరంలో ఫైల్‌లను వ్రాయడానికి అనుమతి</string>
+    <string name="grant_permission_access_fine_location">ఖచ్చితమైన స్థాన యాక్సెస్</string>
+    <string name="grant_permission_record_audio">రికార్డింగ్ హక్కులు</string>
+</resources>

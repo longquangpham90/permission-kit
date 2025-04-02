@@ -1,0 +1,12 @@
+<resources>
+    <string name="grant_permission_need_to_access">Aplikasi memerlukan izin berikut agar dapat berfungsi:\n\n</string>
+    <string name="grant_permission_please_navigate_to_setting">\nSilakan buka Pengaturan untuk memberikan izin.</string>
+    <string name="grant_permission_access_denied">Izin ditolak</string>
+    <string name="grant_permission_open_setting">Buka Pengaturan</string>
+    <string name="grant_permission_cancel">Membatalkan</string>
+    <string name="grant_permission_camera_access">Akses kamera</string>
+    <string name="grant_permission_read_external_storage">Izin untuk membaca file di perangkat</string>
+    <string name="grant_permission_write_external_storage">Izin untuk menulis file di perangkat</string>
+    <string name="grant_permission_access_fine_location">Akses lokasi yang tepat</string>
+    <string name="grant_permission_record_audio">Hak perekaman</string>
+</resources>

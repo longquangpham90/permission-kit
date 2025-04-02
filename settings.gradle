@@ -1,0 +1,55 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        mavenLocal()
+        maven { url "https://jitpack.io" }
+        maven {
+            url "./maven-repo"
+        }
+    }
+}
+
+buildCache {
+    local {
+        def osName = System.getProperty("os.name").toLowerCase()
+        def isWindows = osName.contains("win")
+        def isMac = osName.contains("mac")
+        def isLinux = osName.contains("nix") || osName.contains("nux")
+
+        if (isWindows) {
+            directory = "C:/Users/Public/gradle-cache"
+        } else if (isMac) {
+            directory = "/Users/Shared/gradle-cache"
+        } else if (isLinux) {
+            directory = "/var/cache/gradle-cache"
+        } else {
+            throw new GradleException("Unsupported operating system: ${osName}")
+        }
+    }
+}
+
+rootProject.name = "permission-kit"
+include ':app'
+include ':libraries:permission'
+//include ':data'
+include ':domain'
+include ':navigation'
+include ':common-res'
+include ':common-ui'
+include ':features:splash'

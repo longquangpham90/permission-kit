@@ -1,0 +1,10 @@
+android {
+    signingConfigs {
+        release {
+            storeFile file("../app/config/keystores/com.studio.permission.kit.jks")
+            storePassword '123456@As'
+            keyAlias 'com.studio.permission.kit'
+            keyPassword '123456@As'
+        }
+    }
+}

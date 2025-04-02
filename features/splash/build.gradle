@@ -1,0 +1,11 @@
+apply from: '../android_features.gradle'
+
+android {
+
+    namespace 'com.studio.splash'
+
+}
+
+dependencies {
+
+}

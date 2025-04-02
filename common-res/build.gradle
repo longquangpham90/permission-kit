@@ -1,0 +1,13 @@
+apply plugin: 'com.android.library'
+apply from: '../android_commons.gradle'
+
+apply from: '../task/createDimens.gradle'
+
+android {
+
+    namespace 'com.studio.common.res'
+}
+
+dependencies {
+
+}
