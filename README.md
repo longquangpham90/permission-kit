@@ -1,4 +1,4 @@
-´# Permission-Kit
+# Permission-Kit
 
 Library implement with Architecture MVVM pattern using Kotlin.
 
@@ -8,7 +8,7 @@ NOTE for DEV
 
 - Grant permission system
 - Support multi language (en, vi, th, ko,...)
-- Support for Activity, fragment, DialogFragment
+- Support for Activity, Fragment, DialogFragment
 
 ## How to build library aar
 Step 1: check task
@@ -81,6 +81,15 @@ dependencyResolutionManagement {
     }
 ```
 
+## Add the dependency in app build.gradle
+
+```
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
+    implementation ("com.studio.permission:permission-kit:1.0.0")
+}
+```
+
 ## Usage Example
 
  ```
@@ -105,15 +114,6 @@ dependencyResolutionManagement {
   }
   ```
 
-## Add the dependency in app build.gradle
-
-```
-dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
-    implementation ("com.studio.permission:permission-kit:1.0.0")
-}
-```
-
 ## Requirement
 
 JavaVersion=VERSION_17
@@ -122,3 +122,8 @@ Android Gradle plugin Greater than 8.0.0
 ## Test case
 
 ## APK file here
+
+## Copyright & License
+Copyright (c) 2025 Smile Studio. All rights reserved.
+
+
