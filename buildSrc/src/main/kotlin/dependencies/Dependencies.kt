@@ -12,7 +12,7 @@ object Modules {
 
 @Suppress("ktlint:standard:property-naming")
 object Releases {
-    const val minSdk = 29
+    const val minSdk = 26
     const val compileSdk = 35
     const val targetSdk = 35
 }
