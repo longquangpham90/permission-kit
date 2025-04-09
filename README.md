@@ -9,6 +9,7 @@ NOTE for DEV
 - Grant permission system
 - Support multi language (en, vi, th, ko,...)
 - Support for Activity, Fragment, DialogFragment
+- Support for Java, Kotlin
 
 ## How to build library aar
 Step 1: check task
@@ -86,38 +87,53 @@ dependencyResolutionManagement {
 ```
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
-    implementation ("com.studio.permission:permission-kit:1.0.0")
+    implementation ("com.studio.permission:permission-kit:1.1.0")
 }
 ```
 
 ## Usage Example
 
+### Kotlin
  ```
  class DemoActivity : AppCompatActivity() {
       private val permissionHelper by lazy { PermissionHelper(activity = this@DemoActivity) }
 
       override fun onCreate(savedInstanceState: Bundle?) {
           super.onCreate(savedInstanceState)
-          lifecycleScope.launch {
               permissionHelper
                   .requestPermissions(
                       Manifest.permission.READ_SMS, //require
                       language = Locale.getDefault().language, //option
-                      onGranted = { Timber.e("--- permission success") }, //require
-                      onDenied = {
-                        Timber.e("--- permission denied but rationale is true") },//option
-                      onPermanentlyDenied = {
-                        Timber.e("--- permission permanently denied") }//option
-                  ).launchIn(this)
-          }
-      }
+                      onGranted = {
+                        Timber.e("--- Grant Permission success") //require
+                      }, onDenied = {
+                        Timber.e("--- Permission denied but rationale is true") //option
+                      }, onPermanentlyDenied = {
+                        Timber.e("--- Permission permanently denied") //option
+                      }
+                  )
+      }Manifest
   }
   ```
+### Java
+```
+   PermissionHelper permissionHelper = new PermissionHelper(requireActivity());
+        permissionHelper.requestPermissions(Manifest.permission.READ_SMS, //require
+                Locale.getDefault().getLanguage(),//option
+                () -> {
+                    Timber.e("--- Grant Permission success");//require
+                }, deniedList -> {
+                    Timber.e("--- Permission denied but rationale is true");//option
+                }, permanentlyDeniedList -> {
+                    Timber.e("--- Permission permanently denied");//option
+                });
+
+```
 
 ## Requirement
 
 JavaVersion=VERSION_17
-Android Gradle plugin Greater than 8.0.0
+Android Gradle plugin Greater than API 23 - Android Marshmallow 6.0
 
 ## Test case
 

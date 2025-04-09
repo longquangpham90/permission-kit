@@ -1,5 +1,8 @@
 import com.android.build.gradle.internal.tasks.FinalizeBundleTask
 
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -19,6 +22,26 @@ static def getDate() {
     def formattedDate = date.format('yyyyMMddHHmm')
     return formattedDate
 }
+
+def getCurrentBuildVariant() {
+    Gradle gradle = getGradle()
+    String tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+    Pattern pattern
+    if (tskReqStr.contains("assemble"))
+        pattern = Pattern.compile("assemble(\\w+)(Release|Debug)")
+    else
+        pattern = Pattern.compile("generate(\\w+)(Release|Debug)")
+    Matcher matcher = pattern.matcher(tskReqStr)
+    if (matcher.find()){
+        return matcher.group(1).replaceFirst(Pattern.compile("Dev|Qa|Prod"), "").toLowerCase()
+    } else {
+        println "NO MATCH FOUND"
+        println "Build default with profile keystore app"
+        return "kotlinDev".replaceFirst(Pattern.compile("Dev|Qa|Prod"), "").toLowerCase()
+    }
+}
+
+def env = getCurrentBuildVariant()
 
 apply from: '../android_commons.gradle'
 apply from: '../task/versionDependency.gradle'
@@ -49,11 +72,17 @@ android {
         }
     }
 
-    flavorDimensions = ["environment"]
+    flavorDimensions = ["language", "environment"]
     productFlavors {
+        java {
+            dimension "language"
+        }
+        kotlin {
+            dimension "language"
+        }
         dev {
             dimension "environment"
-            def properties = getPropertiesFile("./config/env/dev.properties")
+            def properties = getPropertiesFile("./config/env/${env}Dev.properties")
 //            firebaseAppDistribution {
 //                appId = properties.getProperty('FIREBASE_ID').replaceAll("\"", "")
 //                artifactType = "APK"
@@ -64,7 +93,7 @@ android {
         }
         qa {
             dimension "environment"
-            def properties = getPropertiesFile("./config/env/qa.properties")
+            def properties = getPropertiesFile("./config/env/${env}Qa.properties")
 //            firebaseAppDistribution {
 //                appId = properties.getProperty('FIREBASE_ID').replaceAll("\"", "")
 //                artifactType = "APK"
@@ -75,7 +104,7 @@ android {
         }
         prod {
             dimension "environment"
-            def properties = getPropertiesFile("./config/env/prod.properties")
+            def properties = getPropertiesFile("./config/env/${env}Prod.properties")
 //            firebaseAppDistribution {
 //                appId = properties.getProperty('FIREBASE_ID').replaceAll("\"", "")
 //                artifactType = "APK"

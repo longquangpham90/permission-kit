@@ -17,8 +17,8 @@ android {
                        '../common-res/src/main/res']
     }
 
-    libraryVariants.all { variant ->
-        Object ps = getPropertiesFile("../app/config/env/dev.properties")
+    libraryVariants.configureEach { variant ->
+        Object ps = getPropertiesFile("../app/config/env/${variant.flavorName}.properties")
         Object deepLinks = getPropertiesFile("./config/deepLink.properties")
 
         String deepLinkSchemeKey = "DEEP_LINK_SCHEME"

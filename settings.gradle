@@ -61,7 +61,6 @@ buildCache {
 rootProject.name = "permission-kit"
 include ':app'
 include ':libraries:permission'
-//include ':data'
 include ':domain'
 include ':navigation'
 include ':common-res'

@@ -2,7 +2,7 @@ package com.studio.splash
 
 import androidx.fragment.app.viewModels
 import com.studio.common.ui.base.BaseBindingFragment
-import com.studio.common.ui.binding.setOnSingleClickListener
+import com.studio.permission.PermissionHelper
 import com.studio.splash.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,20 +15,10 @@ class SplashFragment : BaseBindingFragment<SplashViewModel, FragmentSplashBindin
     override fun getViewModelBindingVariable(): Int = BR.viewModel
 
     override fun initView() {
-        binding.apply {
-            buttonSingle.setOnSingleClickListener {
-                viewModel?.onSinglePermission(requireActivity())
-            }
-            buttonDual.setOnSingleClickListener {
-                viewModel?.onDualPermission(requireActivity())
-            }
-            buttonTriple.setOnSingleClickListener {
-                viewModel?.onTriplePermission(requireActivity())
-            }
-        }
+        Unit
     }
 
     override fun initViewModel() {
-        Unit
+        viewModel.setPermission(PermissionHelper(requireActivity()))
     }
 }

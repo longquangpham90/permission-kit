@@ -3,7 +3,18 @@ apply from: '../android_features.gradle'
 android {
 
     namespace 'com.studio.splash'
-
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res',
+                           '../../common-res/src/main/res']
+        }
+        java {
+            java.srcDirs += ['src/java/kotlin']
+        }
+        kotlin {
+            java.srcDirs += ['src/kotlin/kotlin']
+        }
+    }
 }
 
 dependencies {

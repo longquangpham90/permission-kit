@@ -12,7 +12,7 @@ object Modules {
 
 @Suppress("ktlint:standard:property-naming")
 object Releases {
-    const val minSdk = 26
+    const val minSdk = 23
     const val compileSdk = 35
     const val targetSdk = 35
 }
@@ -145,6 +145,8 @@ object Deps {
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragment}"
     const val lifecycleViewModelKtx =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleViewModel}"
+    const val lifecycleRuntTimeKtx =
+        "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleViewModel}"
     const val material = "com.google.android.material:material:${Versions.material}"
     const val epoxy = "com.airbnb.android:epoxy:${Versions.epoxy}"
     const val epoxyProcessor = "com.airbnb.android:epoxy-processor:${Versions.epoxy}"

@@ -19,13 +19,6 @@ import com.studio.common.ui.constant.isBackToRootBottomTab
 import com.studio.common.ui.databinding.ViewProgressDialogBinding
 import com.studio.common.ui.navigator.NavigationCommand
 import com.studio.common.ui.navigator.NavigatorImpl
-import com.studio.common.ui.utils.Listener
-import com.studio.common.ui.utils.isDeveloperOptionsEnabled
-import com.studio.common.ui.utils.isGooglePlayServicesAvailable
-import com.studio.common.ui.utils.isProxySet
-import com.studio.common.ui.utils.isRunningInWiFiDebug
-import com.studio.common.ui.utils.isUsbDebuggingEnabled
-import com.studio.common.ui.utils.requestIntegrityTokenStandard
 import com.studio.common.ui.widget.CustomToast
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -73,38 +66,6 @@ abstract class BaseBindingFragment<VM : BaseViewModel, DB : ViewDataBinding> : F
     protected abstract fun initViewModel()
 
     protected open fun initViewInstance() {
-        if (!isGooglePlayServicesAvailable(requireContext())) {
-            Timber.e("--- Stop all app no GMS")
-        } else if (isDeveloperOptionsEnabled(requireContext())) {
-            Timber.e("--- Stop all app debug mode")
-        } else if (isUsbDebuggingEnabled(requireContext())) {
-            Timber.e("--- Stop all app usb debug")
-        } else if (isRunningInWiFiDebug(requireContext())) {
-            Timber.e("--- Stop all app wifi debug")
-        } else if (isProxySet()) {
-            Timber.e("--- Stop all app proxy")
-        }
-        requestIntegrityTokenStandard(
-            requireContext(),
-            634495574905,
-            object : Listener {
-                override fun onStart() {
-                    Timber.d("--- onStart")
-                }
-
-                override fun onSuccess(token: String) {
-                    Timber.e("--- verify token with BE: $token")
-                }
-
-                override fun onFail(exception: Exception) {
-                    Timber.e("--- Stop all app ${exception.hashCode()}")
-                }
-
-                override fun onCompleted() {
-                    Timber.d("--- onCompleted")
-                }
-            }
-        )
     }
 
     override fun onCreateView(
