@@ -82,37 +82,12 @@ android {
         }
         dev {
             dimension "environment"
-            def properties = getPropertiesFile("./config/env/${env}Dev.properties")
-//            firebaseAppDistribution {
-//                appId = properties.getProperty('FIREBASE_ID').replaceAll("\"", "")
-//                artifactType = "APK"
-//                releaseNotesFile = "./app/config/notes/Dev_ReleaseNote.txt"
-//                testersFile = "./app/config/groups/dev_test.txt"
-//                serviceCredentialsFile = "app/src/dev/adslibrary-77936-firebase-adminsdk-qepmn-a5757308de.json"
-//            }
         }
         qa {
             dimension "environment"
-            def properties = getPropertiesFile("./config/env/${env}Qa.properties")
-//            firebaseAppDistribution {
-//                appId = properties.getProperty('FIREBASE_ID').replaceAll("\"", "")
-//                artifactType = "APK"
-//                releaseNotesFile = "app/config/notes/Qa_ReleaseNote.txt"
-//                testersFile = "app/config/groups/qa_test.txt"
-//                serviceCredentialsFile = "app/src/qa/adslibrary-77936-firebase-adminsdk-qepmn-a5757308de.json"
-//            }
         }
         prod {
             dimension "environment"
-            def properties = getPropertiesFile("./config/env/${env}Prod.properties")
-//            firebaseAppDistribution {
-//                appId = properties.getProperty('FIREBASE_ID').replaceAll("\"", "")
-//                artifactType = "APK"
-//                releaseNotesFile = "./app/config/notes/Prod_ReleaseNote.txt"
-//                testersFile = "./app/config/groups/prod_test.txt"
-////                serviceCredentialsFile = System.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-//                serviceCredentialsFile = "app/src/prod/adslibrary-77936-firebase-adminsdk-qepmn-a5757308de.json"
-//            }
         }
     }
 
