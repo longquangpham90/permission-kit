@@ -11,7 +11,7 @@ android {
 
 dependencies {
     if (project.android.productFlavors.findByName("release")) {
-        implementation("com.studio.permission:permission-kit:1.1.0")
+        implementation("com.studio.permission:permission-kit:1.1.1")
     } else {
         implementation project(Modules.libraryPermission)
     }

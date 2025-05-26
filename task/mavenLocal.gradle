@@ -7,6 +7,16 @@ task dokkaJar(type: Jar) {
     from("$buildDir/dokka")
 }
 
+task javadocJar(type: Jar) {
+    archiveClassifier.set("docs")
+    from "$buildDir/dokkaJavadoc"
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set("sources")
+    from android.sourceSets.main.java.srcDirs
+}
+
 libraries.each { libName ->
     def capitalizedLibName = libName
 
@@ -78,4 +88,9 @@ tasks.register("publishAllLibraries") {
     }
 }
 
-
+task pushLibrary {
+    dependsOn 'publish'
+    doLast {
+        println("Running push build release to MavenLocal task")
+    }
+}

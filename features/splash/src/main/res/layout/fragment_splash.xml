@@ -13,14 +13,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black"
-        android:padding="@dimen/_16sdp">
+        android:layout_height="match_parent">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_single"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16sdp"
             android:layout_marginVertical="@dimen/_16sdp"
             android:text="Single"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,6 +29,7 @@
             android:id="@+id/button_dual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:text="Dual"
             app:layout_constraintTop_toBottomOf="@+id/button_single"
@@ -39,6 +39,7 @@
             android:id="@+id/button_triple"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16sdp"
             android:layout_marginVertical="@dimen/_16sdp"
             android:text="Triple"
             app:layout_constraintTop_toBottomOf="@+id/button_dual"
@@ -50,11 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_30sdp"
-            android:background="@color/white"
             android:gravity="center_horizontal"
             android:padding="@dimen/_10sdp"
             android:text="@{viewModel.titleApp}"
-            android:textColor="@color/black"
             android:textSize="@dimen/_16ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

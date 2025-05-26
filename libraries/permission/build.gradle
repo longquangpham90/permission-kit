@@ -14,8 +14,8 @@ android {
     namespace "com.studio.permission"
 
     defaultConfig {
-        versionCode 2
-        versionName "1.1.0"
+        versionCode 3
+        versionName "1.1.1"
     }
 
     flavorDimensions = ["environment"]
@@ -36,16 +36,6 @@ dependencies {
 }
 
 def libName = 'permission'
-
-task javadocJar(type: Jar) {
-    archiveClassifier.set("docs")
-    from "$buildDir/dokkaJavadoc"
-}
-
-task sourcesJar(type: Jar) {
-    archiveClassifier.set("sources")
-    from android.sourceSets.main.java.srcDirs
-}
 
 publishing {
     publications {
@@ -73,7 +63,7 @@ publishing {
     repositories {
         mavenLocal()
         maven {
-            url uri('../../maven-repo')
+            url uri('../../repository')
         }
         maven {
             url = uri("https://maven.pkg.github.com/longquangpham90/permission-kit")
@@ -82,12 +72,5 @@ publishing {
                 password = githubToken
             }
         }
-    }
-}
-
-task pushAds {
-    dependsOn 'publish'
-    doLast {
-        println("Running push build release to MavenLocal task")
     }
 }
