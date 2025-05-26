@@ -87,7 +87,7 @@ dependencyResolutionManagement {
 ```
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
-    implementation ("com.studio.permission:permission-kit:1.1.0")
+    implementation ("com.studio.permission:permission-kit:1.1.1")
 }
 ```
 
